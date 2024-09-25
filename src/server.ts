@@ -30,6 +30,7 @@ const server = new grpc.Server();
 
 server.addService(grpcObject.auth.Auth.service, {
   RefreshToken: authController.refreshToken,
+  IsAuthenticated : authController.isAuthenticated,   
 });
 
 const SERVER_ADDRESS = process.env.GRPC_SERVER_PORT || '50002';

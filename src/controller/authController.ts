@@ -3,6 +3,20 @@ import "dotenv/config"
 
 export class Authcontroller {
 
+    isAuthenticated = async (call:any, callback:any) => {
+        try{
+            console.log("token validating  ");
+            const token = call.request.token || '';            
+            const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN || "AmrasHameed" as Secret)
+            if(!decoded){
+                throw new Error('Invalid token')
+            }
+            callback(null,{userId : decoded.id, role: decoded.role})
+        }catch(e: any){
+            callback(e, {message:"something gone wrong in authentication"})
+         }
+    }
+
     refreshToken = async(call:any, callback:any) => {
         try{
             const refreshtoken = call.request.token as string;
