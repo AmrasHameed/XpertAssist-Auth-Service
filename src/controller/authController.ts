@@ -20,18 +20,18 @@ export class Authcontroller {
     refreshToken = async(call:any, callback:any) => {
         try{
             const refreshtoken = call.request.token as string;
-            const decoded: any = jwt.verify(refreshtoken, process.env.REFRESH_TOKEN ||"Amras" as Secret);
+            const decoded: any = jwt.verify(refreshtoken, process.env.REFRESH_TOKEN ||"AmrasHameed" as Secret);
             if(!decoded){
                 throw new Error("refresh invalid token  ")
             }
             console.log("token refreshed ");
-            const refreshToken = jwt.sign({id: decoded.id, role: decoded.role}, process.env.REFRESH_TOKEN ||"Amras" as Secret, {
+            const refresh_token = jwt.sign({id: decoded.id, role: decoded.role}, process.env.REFRESH_TOKEN ||"AmrasHameed" as Secret, {
                 expiresIn: "7d"
             })
-            const accessToken = jwt.sign({id: decoded.id, role: decoded.role}, process.env.ACCESS_TOKEN ||"Amras"as Secret, {
+            const access_token = jwt.sign({id: decoded.id, role: decoded.role}, process.env.ACCESS_TOKEN ||"AmrasHameed"as Secret, {
                 expiresIn: "15m"
             })
-            const response = {accessToken, refreshToken}
+            const response = {access_token, refresh_token}
             callback(null, response)
         }catch(e:any){
             console.log(e);  
